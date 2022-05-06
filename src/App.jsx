@@ -73,8 +73,15 @@ const movieCategories = [
   },
 ];
 
+function Play() {
+  return (
+    <h3>Playing Movie</h3>
+  )
+}
+
 function Movie() {
   const { categoryId, movieId } = useParams();
+  const { url, path } = useRouteMatch();
   const movie = movieCategories
     .find(({ id }) => id === categoryId)
     .movies.find(({ id }) => id === movieId);
@@ -82,8 +89,16 @@ function Movie() {
   const { title, poster } = movie;
   return (
     <div>
-      <h3>{title}</h3>
+      <Link to={`${url}/play`}>
+        <h3>{title}</h3>
+      </Link>
       <img src={poster} alt={title} height={300} width={300} />
+
+      <hr />
+
+      <Route path={`${path}/play`}>
+        <Play />
+      </Route>
     </div>
   );
 }
